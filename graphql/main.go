@@ -1,13 +1,15 @@
 package main
 
 import (
-  "github.com/kelseyhightower/envconfig"
-  "github.com/tinrab/spidey/graphql/graph"
-  "github.com/99designs/gqlgen/handler"
-  "log"
-  "net/http"
+	"log"
+	"net/http"
+
+	"github.com/99designs/gqlgen/handler"
+	"github.com/kelseyhightower/envconfig"
+	"github.com/tinrab/spidey/graphql/graph"
 )
 
+// Config for urls
 type Config struct {
 	AccountURL string `envconfig:"ACCOUNT_SERVICE_URL"`
 	CatalogURL string `envconfig:"CATALOG_SERVICE_URL"`
@@ -29,5 +31,5 @@ func main() {
 	http.Handle("/graphql", handler.GraphQL(s.ToExecutableSchema()))
 	http.Handle("/playground", handler.Playground("Spidey", "/graphql"))
 
-  log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
